@@ -1,0 +1,12 @@
+{% extends "character/base.html" %}
+
+{% block head-meta %}
+    {{ block.super }}
+    <!-- Page description -->
+    <meta name="description" content="Eclipse Phase Character Sheet." />
+    <title>{{character.name}}</title>
+{% endblock %}
+
+{% block body-content %}
+{% character_include character %}
+{% endblock %}

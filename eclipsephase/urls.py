@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from eclipsephase.character.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'sheet/(?P<character_id>[0-9]+)', character_sheet),
+    url(r'reset/(?P<character_id>[0-9]+)', reset_character),
+    url(r'party/(?P<party_id>[0-9]+)', party)
 ]

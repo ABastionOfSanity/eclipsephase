@@ -1,0 +1,50 @@
+
+{% container type="fluid" %}
+<h1><button data-toggle="collapse" data-target="#full_sheet{{ character.id }}">{{ character.name }}</button></h1>
+
+        <div id="full_sheet{{ character.id }}" class="collapse">
+        {% row %}
+        {% column %}
+            <h2><button data-toggle="collapse" data-target="#aptitudes{{ character.id }}">Aptitudes</button></h2>
+        {% endcolumn %}
+        {% endrow %}
+    <div id="aptitudes{{ character.id }}" class="collapse">
+        {% row %}
+        {% for apt in aptitudes %}
+            {% column xs="6" sm="1" md="1" lg="1" %}
+            {% row %} {% column %} {{ apt.0 }} {% endcolumn %} {% endrow %}
+            {% row %} {% column %} {{character.ego|model_attr:apt.0}}({{ character|model_attr:apt.0 }})  {% endcolumn %} {% endrow %}
+            {% endcolumn %}
+        {% endfor %}
+        {% endrow %}
+
+        {% row %} {% column %}<h3>Secondary/Computed Aptitudes</h3> {% endcolumn %} {% endrow %}
+        {% row %}
+        {% for apt in secondaries %}
+
+            {% column xs="6" sm="1" md="1" lg="1" %}
+            {% row %} {% column %} {{ apt.0 }} {% endcolumn %} {% endrow %}
+            {% row %} {% column %}{{ character|model_attr:apt.0 }}  {% endcolumn %} {% endrow %}
+            {% endcolumn %}
+
+        {% endfor %}
+        {% endrow %}
+    </div>
+        {% row %}
+        {% column %}
+        <h2><button data-toggle="collapse" data-target="#skillz{{ character.id }}">Skills</button></h2>
+        {% endcolumn %}
+        {% endrow %}
+            <div id="skillz{{ character.id }}" class="collapse">
+        {% row %}
+
+        {% for skill in skills|dict_var_key:character.id %}
+            {% column xs="6" sm="3" md="2" lg="2" %}
+            {% row %} {% column %} {{ skill.skill.name }}({{skill.skill.linked}}) {% endcolumn %} {% endrow %}
+            {% row %} {% column %}{{ skill.value }}  {% endcolumn %} {% endrow %}
+            {% endcolumn %}
+        {% endfor %}
+        {% endrow %}
+            </div>
+        </div>
+{% endcontainer %}
